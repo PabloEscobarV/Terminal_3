@@ -1,0 +1,9 @@
+[submodule "HashTable"]
+	path = HashTable
+	url = https://github.com/PabloEscobarV/HashTable.git
+[submodule "libft"]
+	path = libft
+	url = https://github.com/PabloEscobarV/libft.git
+[submodule "E_Codes"]
+	path = E_Codes
+	url = https://github.com/PabloEscobarV/E_Codes.git
