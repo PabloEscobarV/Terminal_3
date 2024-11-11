@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
+/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/10 20:53:14 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2024/11/11 16:12:38 by black            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include "../../libft/libft.h"
 #include "../../E_Codes/e_codes.h"
 #include <stdlib.h>
-
-#include <stdio.h>
-#include <readline/readline.h>
 
 int	cmp_strv(const char *str, const char **spltrs)
 {
@@ -108,11 +105,5 @@ char	**splitter(const char *str, const char **spltrs)
   llst = get_data_list(str, &crd, spltrs);
   strv = get_strv_from_llst(llst);
   llistclear(&llst, clear_llist_void);
-}
-
-
-int main()
-{
-
-  return (E_OK);
+  return (strv);
 }
