@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/11 16:12:38 by black            ###   ########.fr       */
+/*   Updated: 2024/11/13 21:36:06 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../libft/libft.h"
 #include "../../E_Codes/e_codes.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int	cmp_strv(const char *str, const char **spltrs)
 {
@@ -34,24 +35,27 @@ int	get_str_crd(const char *str, t_crd *crd, const char **spltrs)
 	while (crd->i < crd->size)
 	{
 		i = cmp_strv(str + crd->i, spltrs);
-    ++crd->i;
 		if (i)
-			return (i);
+			break ;
+    ++crd->i;
 	}
-  return (E_ERR);
+  return (i);
 }
 
 char  *get_str(const char *str, t_crd *crd, const char **spltrs)
 {
   int   i;
   int   tmp;
+  char  *result;
 
   tmp = crd->i;
   i = get_str_crd(str, crd, spltrs);
-  if (tmp < 0)
-    return (NULL);
+  if (tmp < crd->i)
+    result = ft_strldup(str + tmp, crd->i - tmp);
+  else
+    result = NULL;
   crd->i += i;
-  return (ft_strldup(str, crd->i - i - tmp));
+  return (result);
 }
 
 t_llist *get_data_list(const char *str, t_crd *crd, const char **spltrs)
@@ -83,12 +87,15 @@ char  **get_strv_from_llst(t_llist *llst)
     ft_perror("ERROR!!! Bad mammory allocation");
     exit(E_ERR);
   }
+  strv[sizev] = NULL;
+  sizev = 0;
   while (llst)
   {
-    strv = llst->data;
+    strv[sizev] = llst->data;
+    ++sizev;
     llst = llst->next;
   }
-  strv[sizev] = NULL;
+
   return (strv);
 }
 
