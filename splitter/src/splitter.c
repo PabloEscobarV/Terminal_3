@@ -6,7 +6,7 @@
 /*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/14 13:35:34 by black            ###   ########.fr       */
+/*   Updated: 2024/11/14 14:13:33 by black            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ char	**splitter(const char *str, const char **spltrs)
   crd.size = ft_strlen(str);
   llst = get_data_list(str, &crd, spltrs);
   strv = get_strv_from_llst(llst);
-  llistclear(&llst, clear_llist_void);
+  llistclear(&llst, ft_void);
   return (strv);
 }
