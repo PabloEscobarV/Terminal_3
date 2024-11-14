@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
+/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:08:59 by black             #+#    #+#             */
-/*   Updated: 2024/11/13 21:44:48 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2024/11/14 16:13:02 by black            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main()
     {
         if (read_data_from_stdi(&str))
             break;
-        result = splitter((t_cchar *)str, (t_cchar **)spltrs);
+        result = splitter((t_cchar *)str, (t_cchar **)spltrs, '\\');
         print_matrix((t_cchar **)result);
         free(str);
         ft_free_d((void **)result);
