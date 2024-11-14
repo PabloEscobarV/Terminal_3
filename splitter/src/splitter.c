@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
+/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/13 21:36:06 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2024/11/14 13:35:34 by black            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char  **get_strv_from_llst(t_llist *llst)
     ++sizev;
     llst = llst->next;
   }
-
   return (strv);
 }
 
