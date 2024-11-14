@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:08:59 by black             #+#    #+#             */
-/*   Updated: 2024/11/14 16:13:02 by black            ###   ########.fr       */
+/*   Updated: 2024/11/14 21:25:05 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,24 @@ void print_matrix(const char **strv)
 
 int main()
 {
-    char *str = NULL;
-    char **spltrs = NULL;
-    char **result = NULL;
     char splt_ch = ' ';
+    char *str = NULL;
+    char **result = NULL;
+    t_splt  splt;
 
-    spltrs = ft_split("|| && | &", splt_ch);
+    splt.splts = (t_cchar **)ft_split("|| && | &", splt_ch);
+    splt.qts = (t_cchar **)ft_split("\" \'", splt_ch);
     while (1)
     {
         if (read_data_from_stdi(&str))
             break;
-        result = splitter((t_cchar *)str, (t_cchar **)spltrs, '\\');
+        result = splitter((t_cchar *)str, &splt, '\\');
         print_matrix((t_cchar **)result);
         free(str);
         ft_free_d((void **)result);
     }
-    ft_free_d((void **)spltrs);
+    ft_free_d((void **)splt.splts);
+    ft_free_d((void **)splt.qts);
     free(str);
     return (0);
 }
