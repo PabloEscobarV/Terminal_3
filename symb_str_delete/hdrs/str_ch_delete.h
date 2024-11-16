@@ -6,12 +6,12 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:01:11 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/16 16:04:50 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2024/11/16 16:15:09 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYMB_STR_DELETE_H
-# define SYMB_STR_DELETE_H
+#ifndef STR_CH_DELETE_H
+# define STR_CH_DELETE_H
 
 char	*str_ch_delete(const char *src, const char symb);
 

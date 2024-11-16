@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:13:22 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/16 16:04:40 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2024/11/16 16:14:16 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	str_len_non_symb(const char *str, const char symb)
 
 static char	*str_cpy_nosymb(t_cchar *src, t_cchar symb, unsigned int size)
 {
-	int	i;
+	int		i;
 	char	*str;
 
 	str = malloc((size + 1) * sizeof(char));
