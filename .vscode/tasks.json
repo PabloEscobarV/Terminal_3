@@ -8,9 +8,9 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "src/splitter.c",
+                // "src/splitter.c",
                 "-lreadline",
-                "-L../libft",
+                "-L../../libft",
                 "-lft",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
