@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
+/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/14 21:35:14 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2024/11/27 11:31:50 by black            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static int	get_str_crd(t_cchar *str, t_crd *crd, t_splt *splt, t_cchar esc)
+int	esc_ch_filter(t_cchar *str, t_crd *crd, t_cchar esc)
 {
+  int tmp;
+
+  if (!crd->i || str[crd->i - 1] != esc)
+    return (E_TRUE);
+  tmp = crd->i - 2;
+  while (tmp > 0 && str[tmp] == esc)
+    --tmp;
+  return ((crd->i - tmp) % 2);
+}
+
+	static int	get_str_crd(t_cchar *str, t_crd *crd, t_splt *splt, t_cchar esc)
+	{
 	int	i;
 	int	tmp;
 
@@ -28,12 +40,13 @@ static int	get_str_crd(t_cchar *str, t_crd *crd, t_splt *splt, t_cchar esc)
 		if (splt->qts[tmp])
 			skip_qts(str, crd, splt->qts[tmp]);
 		i = ft_cmp_strv(str + crd->i, splt->splts);
-		if (i && (!crd->i || str[crd->i - 1] != esc))
-			break ;
+		if (i)
+			if (esc_ch_filter(str, crd, esc))
+				break ;
 		++crd->i;
 	}
 	return (i);
-}
+	}
 
 static char	*get_str(t_cchar *str, t_crd *crd, t_splt *spltrs, t_cchar esc)
 {
