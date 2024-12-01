@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/27 11:31:50 by black            ###   ########.fr       */
+/*   Updated: 2024/12/01 21:23:15 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	esc_ch_filter(t_cchar *str, t_crd *crd, t_cchar esc)
+static int	get_str_crd(t_cchar *str, t_crd *crd, t_splt *splt, t_cchar esc)
 {
-  int tmp;
-
-  if (!crd->i || str[crd->i - 1] != esc)
-    return (E_TRUE);
-  tmp = crd->i - 2;
-  while (tmp > 0 && str[tmp] == esc)
-    --tmp;
-  return ((crd->i - tmp) % 2);
-}
-
-	static int	get_str_crd(t_cchar *str, t_crd *crd, t_splt *splt, t_cchar esc)
-	{
 	int	i;
 	int	tmp;
 
@@ -46,7 +34,7 @@ int	esc_ch_filter(t_cchar *str, t_crd *crd, t_cchar esc)
 		++crd->i;
 	}
 	return (i);
-	}
+}
 
 static char	*get_str(t_cchar *str, t_crd *crd, t_splt *spltrs, t_cchar esc)
 {
