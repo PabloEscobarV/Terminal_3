@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_insert.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: black <black@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:44:16 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/01/07 21:53:29 by black            ###   ########.fr       */
+/*   Updated: 2025/01/22 22:04:26 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,61 @@
 #include <unistd.h>
 #include <readline/readline.h>
 
-t_uint	get_insrt_size(t_cchar *str, t_uint data_size, t_cchar insrt_ch)
-{
-	t_uint	str_size;
+// t_uint	get_insrt_size(t_cchar *str, t_uint data_size, t_cchar insrt_ch)
+// {
+// 	t_uint	str_size;
 
-	str_size = 0;
-	if (data_size)
-	{
-		while (*str)
-		{
-			if (*str == insrt_ch)
-				str_size += data_size;
-			++str;
-		}
-	}
-	return (str_size);
-}
+// 	str_size = 0;
+// 	if (data_size)
+// 	{
+// 		while (*str)
+// 		{
+// 			if (*str == insrt_ch)
+// 				str_size += data_size;
+// 			++str;
+// 		}
+// 	}
+// 	return (str_size);
+// }
 
-void	_str_insert(char *result, t_cchar *str, t_cchar *data, t_cchar insrt_ch)
-{
-	while (*str)
-	{
-		if (*str == insrt_ch)
-			result = ft_strcpy(result, data);
-		else
-		{
-			*result = *str;
-			++result;
-		}
-		++str;
-	}
-}
+// void	_str_insert(char *result, t_cchar *str, t_cchar *data, t_cchar insrt_ch)
+// {
+// 	while (*str)
+// 	{
+// 		if (*str == insrt_ch)
+// 			result = ft_strcpy(result, data);
+// 		else
+// 		{
+// 			*result = *str;
+// 			++result;
+// 		}
+// 		++str;
+// 	}
+// }
 
-char	*str_insert(const char *str, const char *data, const char insrt_ch)
-{
-	t_uint	result_size;
-	t_uint	data_size;
-	char		*result;
+// char	*str_insert(const char *str, const char *data, const char insrt_ch)
+// {
+// 	t_uint	result_size;
+// 	t_uint	data_size;
+// 	char		*result;
 
-	if (!str || !data || !(*data))
-		return (NULL);
-	data_size = ft_strlen(data);
-	result_size = get_insrt_size(str, data_size, insrt_ch);
-	if (!result_size)
-		return (NULL);
-	result_size += ft_strlen(str) - result_size / data_size;
-	result = malloc((result_size + 1) * sizeof(char));
-	if (!result)
-	{
-		ft_perror("ERROR!!! (malloc)");
-		exit(-1);
-	}
-	result[result_size] = '\0';
-	_str_insert(result, str, data, insrt_ch);
-	return (result);
-}
+// 	if (!str || !data || !(*data))
+// 		return (NULL);
+// 	data_size = ft_strlen(data);
+// 	result_size = get_insrt_size(str, data_size, insrt_ch);
+// 	if (!result_size)
+// 		return (NULL);
+// 	result_size += ft_strlen(str) - result_size / data_size;
+// 	result = malloc((result_size + 1) * sizeof(char));
+// 	if (!result)
+// 	{
+// 		ft_perror("ERROR!!! (malloc)");
+// 		exit(-1);
+// 	}
+// 	result[result_size] = '\0';
+// 	_str_insert(result, str, data, insrt_ch);
+// 	return (result);
+// }
 
 static int	read_data_from_stdi(char **str, char **str_to, char *ch)
 {
@@ -100,7 +100,7 @@ int	main()
 	{
 		if (read_data_from_stdi(&str, &str_to, &insert))
 			break ;
-		result = str_insert(str, str_to, insert);
+		result = ft_str_insert(str, str_to, insert);
 		printf("reult:\t%s\n", result);
 		free(str);
 		free(str_to);
