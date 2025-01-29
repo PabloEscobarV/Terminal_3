@@ -6,35 +6,71 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:15:15 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/01/22 22:52:28 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/01/29 22:09:37 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdrs/get_app_path.h"
 #include "../../libft/libft.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-void print_matrix(const char **strv)
+static char	**_get_paths(const char *app, const char **envp)
 {
-    if (!strv)
-    {
-        printf("NULL POINTER STRV\n");
-        return;
-    }
-    while (*strv)
-    {
-        printf("|%s|\n", *strv);
-        ++strv;
-    }
+	char	*path;
+	char	**paths;
+
+	path = ft_get_env(PATH, envp);
+	if (path)
+	{
+		paths = ft_split(path, PATH_SPLIT_CH);
+	}
+	free(path);
+	return (paths);
 }
 
-int main(int argc, char **argv, char **envp)
+static	void	_add_app_name_to_paths(const char *app, char **paths)
 {
-	print_matrix((const char **)envp);
-	char *path = ft_get_env(PATH, (const char **)envp);
+	char	*app_name;
 
-	printf("%s\n", path);
-	free(path);
-	return 0;
+	app_name = ft_strjoin(PATH_SLASH, (char *)app);
+	if (paths && *paths)
+	{
+		while (*paths)
+		{
+			*paths = ft_strjoinfree(*paths, app_name, 0);
+			++paths;
+		}
+	}
+	free(app_name);
+}
+
+static char	*_get_app_path(char **paths)
+{
+	while (*paths)
+	{
+		if (!access(*paths, F_OK || X_OK))
+			break ;
+		++paths;
+	}
+	return (ft_strdup(*paths));
+}
+
+char	*get_app_path(const char *app, const char **envp)
+{
+	char	*app_path;
+	char	**paths;
+
+	app_path = NULL;
+	if (app && *app && envp)
+	{
+		paths = _get_paths(app, envp);
+		if (paths)
+		{
+			_add_app_name_to_paths(app, paths);
+			app_path = _get_app_path(paths);
+		}
+		ft_free_d((void **)paths);
+	}
+	return (app_path);
 }
