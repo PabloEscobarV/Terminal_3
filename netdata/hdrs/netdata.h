@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/01/30 20:49:21 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/09 19:31:06 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef enum	e_operations
 	E_OPER_AND,
 	E_OPER_SIZE
 }							t_operations;
+
+typedef struct	s_rsrvd
+{
+	char	*qts;
+	char	*reserved;
+	char	**operations;
+}								t_rsrvd;
 
 typedef struct	s_argv
 {
