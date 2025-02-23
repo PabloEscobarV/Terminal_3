@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/09 19:31:06 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/23 00:41:56 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@
 # define ND_HERDOC_RDR	"<<"
 
 typedef enum	e_operations
-{
-	E_OPER_PIPE,
-	E_OPER_OR,
+{	E_OPER_OR,
 	E_OPER_AND,
+	E_OPER_APP_OUTFILE,
+	E_OPER_HERDOC,
+	E_OPER_INFILE,
+	E_OPER_OUTFILE,
+	E_OPER_PIPE,
 	E_OPER_SIZE
 }							t_operations;
 
