@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:08:59 by black             #+#    #+#             */
-/*   Updated: 2025/02/03 21:28:19 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/23 13:36:12 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int main()
     t_splt  splt;
 
     splt.splts = (t_cchar **)ft_split("<< >> || && | & < >", splt_ch);
+    // splt.splts = NULL;
     splt.qts = (t_cchar **)ft_split("\" \'", splt_ch);
     while (1)
     {
