@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/23 14:12:02 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/24 21:33:26 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	get_str_crd(t_cchar *str, t_crd *crd, t_splt *splt, t_cchar esc)
 
 	while (crd->i < crd->size)
 	{
-		skip_qts(str, crd, splt->qts, esc);
-		tmp = ft_cmp_strv(str + crd->i, splt->splts);
+		skip_qts(str, crd, splt->skip_pair, esc);
+		tmp = ft_cmp_strv(str + crd->i, splt->splitters);
 		if (tmp)
 		{
 			if (esc_ch_filter(str, crd, esc))
@@ -95,20 +95,25 @@ static char	**get_strv_from_llst(t_llist *llst)
 	return (strv);
 }
 
-char	**splitter(const char *str, t_splt *spltrs, const char esc)
+char	**splitter(t_cchar *str, t_cchar *splt, t_cchar *skip_pair, t_cchar esc)
 {
-	char	**strv;
+	char		**strv;
 	t_llist	*llst;
-	t_crd	crd;
+	t_crd		crd;
+	t_splt	spltrs;
 
-	if (!str || !spltrs)
+	if (!str)
 		return (NULL);
-	if (!spltrs->splts)
+	if (!splt)
 		return (transfer_str(str));
 	crd.i = 0;
 	crd.size = ft_strlen(str);
-	llst = get_list(str, &crd, spltrs, esc);
+	spltrs.splitters = (t_cchar **)ft_split(splt, SPLIT_IN_DATA_CH);
+	spltrs.skip_pair = (t_cchar **)ft_split(skip_pair, SPLIT_IN_DATA_CH);
+	llst = get_list(str, &crd, &spltrs, esc);
 	strv = get_strv_from_llst(llst);
 	llistclear(&llst, ft_void);
+	ft_free_d((void **)spltrs.skip_pair);
+	ft_free_d((void **)spltrs.splitters);
 	return (strv);
 }

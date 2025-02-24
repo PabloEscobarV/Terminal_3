@@ -6,19 +6,15 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:02:34 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/11/14 21:40:43 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/24 21:27:41 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPLITTER_H
 # define SPLITTER_H
 
-typedef struct s_splt
-{
-	const char	**splts;
-	const char	**qts;
-}							t_splt;
+#include "../../libft/libft.h"
 
-char	**splitter(const char *str, t_splt *spltrs, const char esc);
+char	**splitter(t_cchar *str, t_cchar *splt, t_cchar *skip_pair, t_cchar esc);
 
 #endif

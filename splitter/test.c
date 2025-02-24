@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:08:59 by black             #+#    #+#             */
-/*   Updated: 2025/02/23 13:36:12 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/24 21:29:24 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,17 @@ void print_matrix(const char **strv)
 
 int main()
 {
-    char splt_ch = ' ';
     char *str = NULL;
     char **result = NULL;
-    t_splt  splt;
-
-    splt.splts = (t_cchar **)ft_split("<< >> || && | & < >", splt_ch);
-    // splt.splts = NULL;
-    splt.qts = (t_cchar **)ft_split("\" \'", splt_ch);
     while (1)
     {
         if (read_data_from_stdi(&str))
             break;
-        result = splitter((t_cchar *)str, &splt, '\\');
+        result = splitter((t_cchar *)str, "<< >> || && | & < >", "\" \'", '\\');
         print_matrix((t_cchar **)result);
         free(str);
         ft_free_d((void **)result);
     }
-    ft_free_d((void **)splt.splts);
-    ft_free_d((void **)splt.qts);
     free(str);
     return (0);
 }
