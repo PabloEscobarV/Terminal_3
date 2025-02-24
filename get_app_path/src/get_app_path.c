@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:15:15 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/01/29 22:09:37 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/24 21:59:35 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,25 @@ static char	*_get_app_path(char **paths)
 	return (ft_strdup(*paths));
 }
 
-char	*get_app_path(const char *app, const char **envp)
+char	*get_app_path(const char *app, const char *path)
+{
+	char	*app_path;
+	char	**paths;
+
+	if (app && *app && path && *path)
+	{
+		paths = ft_split(path, PATH_SPLIT_CH); 
+		if (paths)
+		{
+			_add_app_name_to_paths(app, paths);
+			app_path = _get_app_path(paths);
+		}
+		ft_free_d((void **)paths);
+	}
+	return (app_path);
+}
+
+char	*get_app_path_envp(const char *app, const char **envp)
 {
 	char	*app_path;
 	char	**paths;
