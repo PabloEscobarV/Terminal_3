@@ -6,17 +6,16 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/23 00:41:56 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/24 21:39:52 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef NETDATA_H
 #define NETDATA_H
 
-# define ND_INFILE_RDR	"<"
-# define ND_OUTFILE_RDR	">"
-# define ND_APPEND_RDR	">>"
-# define ND_HERDOC_RDR	"<<"
+# define ND_SPLITTERS	"|| $$ >> << < > |"
+# define ND_SKIP_PAIR	"\" \'"
+# define ND_ESC_CH		'\\'
 
 typedef enum	e_operations
 {	E_OPER_OR,
@@ -42,6 +41,7 @@ typedef struct	s_argv
 	t_uchar				out_append;
 	char					*in_file;
 	char					*out_file;
+	char					*app_path;
 	char					**argv;
 	t_operations	operation;
 }								t_argv;

@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_operation.c                                    :+:      :+:    :+:   */
+/*   set_arg_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 01:01:28 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/24 20:40:51 by Pablo Escob      ###   ########.fr       */
+/*   Created: 2025/02/24 20:47:26 by Pablo Escob       #+#    #+#             */
+/*   Updated: 2025/02/24 22:00:38 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdrs/netdata.h"
 #include "../../libft/libft.h"
+#include "../../get_app_path/hdrs/get_app_path.h"
+#include "../../splitter/hdrs/splitter.h"
 
-void	set_operation(t_cchar *data, t_uchar operation, t_argv *argvt)
+void	set_arg_list(t_cchar *data, t_argv *argvt)
 {
-	switch (operation)
-	{
-	case E_OPER_APP_OUTFILE:
-			argvt->out_append = E_OPER_APP_OUTFILE;
-			argvt->out_file = data;
-		break;
-	case E_OPER_HERDOC:
-			argvt->in_herdoc = E_OPER_HERDOC;
-			argvt->in_file = data;
-		break;
-	case E_OPER_INFILE:
-			argvt->in_file = data;
-		break;
-	case E_OPER_OUTFILE:
-			argvt->out_file = data;
-		break;
-	default:
-			argvt->operation = operation;
-	}
+	char	*path;
+
+	path = getenv(PATH);
+	argvt->argv = splitter(data, ND_SPLITTERS, ND_SKIP_PAIR, ND_ESC_CH);
+	argvt->app_path = get_app_path(argvt->argv[0], path);
+	free(path);
 }
