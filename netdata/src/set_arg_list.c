@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:47:26 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/24 22:00:38 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/02/27 21:04:09 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_arg_list(t_cchar *data, t_argv *argvt)
 	char	*path;
 
 	path = getenv(PATH);
-	argvt->argv = splitter(data, ND_SPLITTERS, ND_SKIP_PAIR, ND_ESC_CH);
+	argvt->argv = splitter(data, " ", ND_SKIP_PAIR, ND_ESC_CH);
 	argvt->app_path = get_app_path(argvt->argv[0], path);
 	free(path);
 }
