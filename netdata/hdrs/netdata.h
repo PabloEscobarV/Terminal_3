@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/24 21:39:52 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/01 19:04:03 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # define ND_ESC_CH		'\\'
 
 typedef enum	e_operations
-{	E_OPER_OR,
+{
+	E_OPER_OR,
 	E_OPER_AND,
 	E_OPER_APP_OUTFILE,
 	E_OPER_HERDOC,
@@ -38,12 +39,15 @@ typedef struct	s_rsrvd
 typedef struct	s_argv
 {
 	t_uchar				in_herdoc;
+	t_operations	operation;
 	t_uchar				out_append;
+	char					*app_path;
 	char					*in_file;
 	char					*out_file;
-	char					*app_path;
 	char					**argv;
-	t_operations	operation;
 }								t_argv;
+
+t_argv	*crt_argvt();
+void		free_argvt(t_argv *argvt);
 
 #endif

@@ -6,18 +6,26 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:01:28 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/27 21:00:21 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/01 18:37:57 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdrs/netdata.h"
 #include "../../libft/libft.h"
+#include "../../get_app_path/hdrs/get_app_path.h"
 
-t_uchar	set_operation(t_cchar *data, t_uchar operation, t_argv *argvt)
+static void	_set_arg_list(t_cchar *data, t_argv *argvt)
 {
-	t_uchar	is_operation;
+	char	*path;
 
-	is_operation = 0;
+	path = getenv(PATH);
+	argvt->argv = splitter(data, " ", ND_SKIP_PAIR, ND_ESC_CH);
+	argvt->app_path = get_app_path(argvt->argv[0], path);
+	free(path);
+}
+
+void	set_operation(t_cchar *data, t_uchar operation, t_argv *argvt)
+{
 	switch (operation)
 	{
 	case E_OPER_APP_OUTFILE:
@@ -36,7 +44,6 @@ t_uchar	set_operation(t_cchar *data, t_uchar operation, t_argv *argvt)
 		break;
 	default:
 			argvt->operation = operation;
-			is_operation = 1;
+			_set_arg_list(data, argvt);
 	}
-	return (is_operation);
 }

@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:38:46 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/27 20:59:15 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/01 18:43:32 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../libft/libft.h"
 #include "netdata.h"
 
-t_uchar	set_operation(t_cchar *data, t_uchar operation, t_argv *argvt);
-void	set_arg_list(t_cchar *data, t_argv *argvt);
+void		set_operation(t_cchar *data, t_uchar operation, t_argv *argvt);
+t_uchar	get_operation(t_cchar *args, t_crd *crd, t_cchar **operations);
+
 #endif
