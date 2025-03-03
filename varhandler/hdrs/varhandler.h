@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 20:34:39 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/09/30 22:07:38 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/03 20:40:26 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define VARSIGNE	'='
 
-const char	*varhandler(const char *str, t_hashtable *hst);
-const char	*get_key_from_str(const char *str);
+int		varhandler(const char *str, t_hashtable *hst);
+char	*get_key_from_str(const char *str);
 
 #endif

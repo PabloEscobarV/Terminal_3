@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 20:30:21 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2024/09/30 22:07:43 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/03 21:04:15 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,55 +25,29 @@ static int	check_key(const char *var)
 	return (E_OK);
 }
 
-static char	*variablevalue(const char *data)
+char	*get_key_from_str(const char *str)
 {
-	int		size;
-	char	*var;
+	const char	*key_end;
 
-	size = 0;
-	while (data[size] && !ft_isspace(data[size]))
-		++size;
-	var = malloc((size + 1) * sizeof(char));
-	if (!var)
-	{
-		ft_putstr(STR_MALLOC_ERROR);
-		exit(-1);
-	}
-	ft_strncpy(var, data, size);
-	return (var);
+	key_end = str;
+	while (*key_end && *key_end != VARSIGNE)
+		++key_end;
+	if (check_key(str))
+		return (NULL);
+	return (ft_strldup(str, key_end - str));
 }
 
-const char	*varhandler(const char *str, t_hashtable *hst)
+int	varhandler(const char *str, t_hashtable *hst)
 {
-	const char	*tmp;
-	char		*var;
+	char	*key;
 
 	if (!str)
-		return (str);
-	tmp = str;
-	while (*tmp && *tmp != VARSIGNE)
-		++tmp;
-	if (check_key(str))
-		return (str);
-	var = ft_strldup(str, tmp - str);
-	str = tmp + 1;
-	tmp = variablevalue(tmp + 1);
-	str += ft_strlen(tmp);
-	if (!(*str))
-		hst->add(hst, var, tmp);
-	free(var);
-	free((void *)tmp);
-	return (str);
-}
-
-const char	*get_key_from_str(const char *str)
-{
-	const char	*key;
-
-	key = str;
-	while (*str && *str != VARSIGNE)
-		++str;
-	if (!(*str))
-		return (NULL);
-	return ((const char *)ft_strldup(key, str - key));
+		return (E_ERR);
+	key = get_key_from_str(str);
+	if (!key)
+		return (E_KO);
+	str += ft_strlen(key) + 1;
+	hst->add(hst, key, str);
+	free(key);
+	return (E_OK);
 }
