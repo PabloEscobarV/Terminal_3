@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:08:59 by black             #+#    #+#             */
-/*   Updated: 2025/02/24 21:29:24 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/09 15:43:39 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,19 @@ int main()
 {
     char *str = NULL;
     char **result = NULL;
+    t_splitter  *splittert = crt_splitter(NULL, NULL, '\\');
+    splittert->splt = (t_cchar **)ft_split("<< >> || && | & < >", ' ');
+    splittert->skip_pair = (t_cchar **)ft_split("\" \'", ' ');
     while (1)
     {
         if (read_data_from_stdi(&str))
             break;
-        result = splitter((t_cchar *)str, "<< >> || && | & < >", "\" \'", '\\');
+        result = splitter((t_cchar *)str, splittert);
         print_matrix((t_cchar **)result);
         free(str);
         ft_free_d((void **)result);
     }
     free(str);
+    free_splitter(splittert);
     return (0);
 }

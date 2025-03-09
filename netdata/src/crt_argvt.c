@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:44:14 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/01 18:58:10 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/06 21:04:10 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ t_argv	*crt_argvt()
 	return (argvt);
 }
 
-void	free_argvt(t_argv *argvt)
+void	free_argvt(void *data)
 {
+	t_argv	*argvt;
+
+	argvt = (t_argv *)data;
 	ft_free_d((void **)argvt->argv);
-	free(argvt->in_file);
-	free(argvt->out_file);
-	free(argvt->app_path);
+	free((void *)argvt->in_file);
+	free((void *)argvt->out_file);
+	free((void *)argvt->app_path);
 	free(argvt);
 }

@@ -6,13 +6,15 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/01 19:21:25 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/09 15:49:19 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hdrs/netdata.h"
 #include "../splitter/hdrs/splitter.h"
 #include "../libft/libft.h"
+#include "../symb_str_delete/hdrs/str_ch_delete.h"
+#include "../handle_in_file/hdrs/handle_in_file.h"
 #include <stdio.h>
 #include <readline/readline.h>
 
@@ -38,7 +40,7 @@ void print_matrix(const char **strv)
 	}
 }
 
-void print_arvt(void *data)
+void print_argvt(void *data)
 {
 	t_argv	*argvt = (t_argv *)data;
 
@@ -48,27 +50,38 @@ void print_arvt(void *data)
 	printf("INPUT FILE:\t%s\n", argvt->in_file);
 	printf("OUTPUT FILE:\t%s\n", argvt->out_file);
 	printf("ARGV LIST:\n");
-	print_matrix(argvt->argv);
+	print_matrix((t_cchar **)argvt->argv);
+	printf("================================\n");
 }
 
 void handle_in_data(t_cchar *args)
 {
+	t_llist	*llist_argvt;
+	char	**data;
+	t_splitter	*splittert = crt_splitter((t_cchar **)ft_split(ND_SPLITTERS, ' '),
+														(t_cchar **)ft_split(ND_SKIP_PAIR, ' '), ND_ESC_CH);
 
+	args = str_ch_delete(args, '\\');
+	move_symbol((char *)args, ND_RSRVD_SYMB, '<');
+	printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
+	data = splitter(args, splittert);
+	print_matrix((t_cchar **)data);
+	llist_argvt = netdata(args, splittert->splt, (t_cchar **)data);
+	free((void *)args);
+	ft_free_d((void **)data);
+	llistiter(llist_argvt, print_argvt);
+	llistclear(&llist_argvt, free_argvt);
 }
 
 int main()
 {
 	char *str = NULL;
-	char **result = NULL;
+
 	while (1)
 	{
 		if (read_data_from_stdi(&str))
 				break;
-		result = splitter((t_cchar *)str, ND_SPLITTERS, ND_SKIP_PAIR, ND_ESC_CH);
-		print_matrix((t_cchar **)result);
-
-		free(str);
-		ft_free_d((void **)result);
+		handle_in_data((t_cchar *)str);
 	}
 	free(str);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:32:36 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/01 18:58:21 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/09 15:45:56 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ t_argv	*_set_argvt(const char *args, t_crd *crd, t_cchar *data, t_cchar **operat
 	if (!data)
 		return (NULL);
 	argvt = crt_argvt();
-	operation = get_operation(args, crd, operations);
+	operation = get_operation_code(args, crd, operations);
 	set_operation(data, operation, argvt);
+	free((void *)data);
 	return (argvt);
 }
 
@@ -62,7 +63,7 @@ t_llist	*_set_argv_llist(t_cchar *args, t_cchar **data, t_cchar **operations)
 	return (argv_llist);
 }
 
-t_llist	*netdata(t_cchar *args, t_cchar **data, t_cchar **operations)
+t_llist	*netdata(t_cchar *args, t_cchar **operations, t_cchar **data)
 {
 	t_llist	*argv_llist;
 

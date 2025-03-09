@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 21:39:25 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/02/15 20:48:08 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/09 15:01:18 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static void	_handle_in_file(char *args, t_cchar *rsrvd, t_cchar symb)
 {
 	_move_one_back(args);
 	++args;
-	while (*args && !(*_cmp_str_ch(*args, rsrvd) && *(args - 1) != ESC_CH))
+	while (*args
+		&& *args != HIN_SPACE
+		&& (*(args - 1) != ESC_CH
+		&& !*_cmp_str_ch(*args, rsrvd)))
 	{
 		_move_one_back(args);
 		++args;
