@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/09 15:49:19 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/10 21:16:48 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void handle_in_data(t_cchar *args)
 	t_splitter	*splittert = crt_splitter((t_cchar **)ft_split(ND_SPLITTERS, ' '),
 														(t_cchar **)ft_split(ND_SKIP_PAIR, ' '), ND_ESC_CH);
 
-	args = str_ch_delete(args, '\\');
+	// args = str_ch_delete(args, '\\');
 	move_symbol((char *)args, ND_RSRVD_SYMB, '<');
 	printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
 	data = splitter(args, splittert);

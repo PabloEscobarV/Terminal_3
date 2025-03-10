@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:01:28 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/09 16:03:32 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/10 21:00:56 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	_set_arg_list(t_cchar *data, t_argv *argvt)
 	splittert.splt = (t_cchar **)ft_split(" ", '\0');
 	path = getenv(PATH);
 	argvt->argv = (t_cchar **)splitter(data, &splittert);
+	free((void *)data);
 	_set_app_path(argvt, path);
 	ft_free_d((void **)splittert.skip_pair);
 	ft_free_d((void **)splittert.splt);
@@ -66,17 +67,17 @@ void	set_operation(t_cchar *data, t_uchar operation, t_argv *argvt)
 	{
 	case E_OPER_APP_OUTFILE:
 			argvt->out_append = E_OPER_APP_OUTFILE;
-			argvt->out_file = ft_strdup(data);
+			argvt->out_file = data;
 		break;
 	case E_OPER_HERDOC:
 			argvt->in_herdoc = E_OPER_HERDOC;
-			argvt->in_file = ft_strdup(data);
+			argvt->in_file = data;
 		break;
 	case E_OPER_INFILE:
-			argvt->in_file = ft_strdup(data);
+			argvt->in_file = data;
 		break;
 	case E_OPER_OUTFILE:
-			argvt->out_file = ft_strdup(data);
+			argvt->out_file = data;
 		break;
 	default:
 			argvt->operation = operation;
