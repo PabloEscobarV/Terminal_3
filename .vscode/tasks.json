@@ -11,7 +11,7 @@
                 "src/netdata.c",
                 "src/crt_argvt.c",
                 "src/get_operation.c",
-                "src/set_operation.c",
+                // "src/set_operation.c",
                 "-lreadline",
                 "-L../libft",
                 "-lft",

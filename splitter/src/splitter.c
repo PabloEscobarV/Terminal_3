@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/09 15:21:48 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/16 21:22:33 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static int	get_str_crd(t_cchar *str, t_crd *crd, t_splitter *splitters)
+static int	get_str_crd(t_cchar *str, t_crd *crd, t_cchar **operation)
 {
 	int	i;
 	t_cchar	*tmp;
 
 	while (crd->i < crd->size)
 	{
-		skip_qts(str, crd, splitters);
-		tmp = ft_cmp_strv(str + crd->i, splitters->splt);
+		skip_qts(str, crd);
+		tmp = ft_cmp_strv(str + crd->i, operation);
 		if (tmp)
 		{
-			if (esc_ch_filter(str, crd, splitters->ecs_split))
+			if (esc_ch_filter(str, crd, SPLT_ESC_CH))
 				break ;
 			i = ft_strlen(tmp) - 1;
 			if (i > 0)
@@ -39,14 +39,14 @@ static int	get_str_crd(t_cchar *str, t_crd *crd, t_splitter *splitters)
 	return (ft_strlen(tmp));
 }
 
-static char	*get_str(t_cchar *str, t_crd *crd, t_splitter *splitters)
+static char	*get_str(t_cchar *str, t_crd *crd, t_cchar **operation)
 {
 	int		i;
 	int		tmp;
 	char	*result;
 
 	tmp = crd->i;
-	i = get_str_crd(str, crd, splitters);
+	i = get_str_crd(str, crd, operation);
 	if (tmp < crd->i)
 		result = ft_strldup(str + tmp, crd->i - tmp);
 	else
@@ -55,7 +55,7 @@ static char	*get_str(t_cchar *str, t_crd *crd, t_splitter *splitters)
 	return (result);
 }
 
-static t_llist	*get_list(t_cchar *str, t_crd *crd, t_splitter *splitters)
+static t_llist	*get_list(t_cchar *str, t_crd *crd, t_cchar **operation)
 {
 	char	*tmp;
 	t_llist	*llst;
@@ -63,7 +63,7 @@ static t_llist	*get_list(t_cchar *str, t_crd *crd, t_splitter *splitters)
 	llst = NULL;
 	while (crd->i < crd->size)
 	{
-		tmp = get_str(str, crd, splitters);
+		tmp = get_str(str, crd, operation);
 		if (tmp)
 			llistadd_back(&llst, llistnewnode(tmp));
 	}
@@ -95,7 +95,7 @@ static char	**get_strv_from_llst(t_llist *llst)
 	return (strv);
 }
 
-char	**splitter(t_cchar *str, t_splitter *splitters)
+char	**splitter(t_cchar *str, t_cchar **operation)
 {
 	char		**strv;
 	t_llist	*llst;
@@ -103,11 +103,11 @@ char	**splitter(t_cchar *str, t_splitter *splitters)
 
 	if (!str)
 		return (NULL);
-	if (!splitters)
+	if (!operation)
 		return (transfer_str(str));
 	crd.i = 0;
 	crd.size = ft_strlen(str);
-	llst = get_list(str, &crd, splitters);
+	llst = get_list(str, &crd, operation);
 	strv = get_strv_from_llst(llst);
 	llistclear(&llst, ft_void);
 	return (strv);

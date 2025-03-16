@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:33:27 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/09 15:35:03 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/16 21:21:25 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define SPLIT_IN_DATA_CH	' '
 
-void	skip_qts(t_cchar *str, t_crd *crd, t_splitter *splitters);
+void	skip_qts(t_cchar *str, t_crd *crd);
 int		esc_ch_filter(t_cchar *str, t_crd *crd, t_cchar esc);
 char	**transfer_str(const char *str);
 

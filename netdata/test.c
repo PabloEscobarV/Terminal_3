@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/10 21:16:48 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/16 23:47:25 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,14 @@ void handle_in_data(t_cchar *args)
 {
 	t_llist	*llist_argvt;
 	char	**data;
-	t_splitter	*splittert = crt_splitter((t_cchar **)ft_split(ND_SPLITTERS, ' '),
-														(t_cchar **)ft_split(ND_SKIP_PAIR, ' '), ND_ESC_CH);
+	t_cchar	**operations = (t_cchar **)ft_split(ND_SPLITTERS, ' ');
 
 	// args = str_ch_delete(args, '\\');
-	move_symbol((char *)args, ND_RSRVD_SYMB, '<');
+	// move_symbol((char *)args, ND_RSRVD_SYMB, '<');
 	printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
-	data = splitter(args, splittert);
+	data = splitter(args, operations);
 	print_matrix((t_cchar **)data);
-	llist_argvt = netdata(args, splittert->splt, (t_cchar **)data);
+	llist_argvt = netdata(args, operations, (t_cchar **)data);
 	free((void *)args);
 	ft_free_d((void **)data);
 	llistiter(llist_argvt, print_argvt);

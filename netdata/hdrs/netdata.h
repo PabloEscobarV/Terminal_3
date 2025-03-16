@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/09 15:45:55 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/16 23:46:37 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include "../../libft/libft.h"
 
 # define ND_RSRVD_SYMB "\\|$<>\"\'"
-# define ND_SPLITTERS	"|| $$ >> << < > |"
+# define ND_SPLITTERS	"|| $$ | $"
+# define ND_OPERATIONS	"|| $$ << >> > < $"
 # define ND_SKIP_PAIR	"\" \'"
 # define ND_ESC_CH		'\\'
 
@@ -24,10 +25,10 @@ typedef enum	e_operations
 {
 	E_OPER_OR,
 	E_OPER_AND,
-	E_OPER_APP_OUTFILE,
 	E_OPER_HERDOC,
-	E_OPER_INFILE,
+	E_OPER_APP_OUTFILE,
 	E_OPER_OUTFILE,
+	E_OPER_INFILE,
 	E_OPER_PIPE,
 	E_OPER_SIZE
 }							t_operations;

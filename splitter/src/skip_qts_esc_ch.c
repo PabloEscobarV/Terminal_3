@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:32:29 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/09 15:21:45 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/16 21:21:26 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,17 @@
 #include "../../libft/libft.h"
 #include "../../E_Codes/e_codes.h"
 
-void	skip_qts(t_cchar *str, t_crd *crd, t_splitter *splitters)
+void	skip_qts(t_cchar *str, t_crd *crd)
 {
 	t_cchar	*qt;
 
-	qt = ft_cmp_strv(str + crd->i, splitters->skip_pair);
-
-	if (qt && esc_ch_filter(str, crd, splitters->ecs_split))
+	qt = ft_strchr(SPLT_QUETS, str[crd->i]);
+	if (qt && esc_ch_filter(str, crd, SPLT_ESC_CH))
 	{
 		crd->i += ft_strlen(qt);
 		while (crd->i < crd->size)
 		{
-			if (ft_strlcmp(str + crd->i, qt) && esc_ch_filter(str, crd, splitters->ecs_split))
+			if (str[crd->i] == *qt && esc_ch_filter(str, crd, SPLT_ESC_CH))
 				break ;
 			++crd->i;
 		}
