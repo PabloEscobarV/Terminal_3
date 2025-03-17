@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/16 23:47:25 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/17 20:08:41 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,15 @@ void print_argvt(void *data)
 	printf("================================\n");
 }
 
-void handle_in_data(t_cchar *args)
+void handle_in_data(t_cchar *args, t_cchar **splitters, t_cchar **operations)
 {
 	t_llist	*llist_argvt;
 	char	**data;
-	t_cchar	**operations = (t_cchar **)ft_split(ND_SPLITTERS, ' ');
 
 	// args = str_ch_delete(args, '\\');
 	// move_symbol((char *)args, ND_RSRVD_SYMB, '<');
 	printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
-	data = splitter(args, operations);
+	data = splitter(args, splitters);
 	print_matrix((t_cchar **)data);
 	llist_argvt = netdata(args, operations, (t_cchar **)data);
 	free((void *)args);
@@ -75,13 +74,17 @@ void handle_in_data(t_cchar *args)
 int main()
 {
 	char *str = NULL;
+	t_cchar **splitters = (t_cchar **)ft_split(ND_SPLITTERS, ' ');
+	t_cchar	**operations = (t_cchar **)ft_split(ND_OPERATIONS, ' ');
 
 	while (1)
 	{
 		if (read_data_from_stdi(&str))
 				break;
-		handle_in_data((t_cchar *)str);
+		handle_in_data((t_cchar *)str, splitters, operations);
 	}
 	free(str);
+	ft_free_d((void **)operations);
+	ft_free_d((void **)splitters);
 	return (0);
 }
