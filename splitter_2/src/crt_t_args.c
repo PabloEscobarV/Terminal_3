@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   splitter.h                                         :+:      :+:    :+:   */
+/*   crt_t_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 20:02:34 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/23 20:07:53 by Pablo Escob      ###   ########.fr       */
+/*   Created: 2024/11/14 21:32:29 by Pablo Escob       #+#    #+#             */
+/*   Updated: 2025/03/23 20:07:43 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPLITTER_H
-# define SPLITTER_H
-
+#include "../hdrs/splitter.h"
+#include "../hdrs/splitter_srvs.h"
 #include "../../libft/libft.h"
 
-#define SPLT_QUETS	"\"\'"
-#define SPLT_ESC_CH	'\\'
-#define SPLT_SPACE	' '
-#define SPLT_OPERATIONS	"||,$$,<<,>>,>,<,|,$,"
-#define SPLT_SPLIT_OPER	','
-
-typedef struct	s_args
+t_args	*crt_t_args(t_cchar *data, int operation)
 {
-	int				operation;
-	t_cchar		*data;
-}								t_args;
+	t_args	*argst;
 
-t_llist	*splitter(t_cchar *str, t_cchar **operation);
-t_args	*crt_t_args(t_cchar *data, int operation);
-void		free_t_args(void *data);
-#endif
+	argst = malloc(sizeof(t_args));
+	if (!argst)
+	{
+		ft_perror("ERROR!!! Memory allocations");
+		exit(-1);
+	}
+	argst->data = data;
+	argst->operation = operation;
+	return (argst);
+}
+
+void	free_t_args(void *data)
+{
+	free((void *)(((t_args *)data)->data));
+	free(data);
+}
