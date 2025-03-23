@@ -6,14 +6,13 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:32:29 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/16 21:21:26 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/23 20:29:39 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdrs/splitter.h"
 #include "../hdrs/splitter_srvs.h"
 #include "../../libft/libft.h"
-#include "../../E_Codes/e_codes.h"
 
 void	skip_qts(t_cchar *str, t_crd *crd)
 {

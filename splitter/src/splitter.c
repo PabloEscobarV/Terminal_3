@@ -6,14 +6,13 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/16 21:22:33 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/23 20:29:45 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdrs/splitter.h"
 #include "../hdrs/splitter_srvs.h"
 #include "../../libft/libft.h"
-#include "../../E_Codes/e_codes.h"
 #include <stdlib.h>
 #include <stdio.h>
 
