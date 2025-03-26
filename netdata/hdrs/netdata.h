@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/17 20:10:04 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/26 01:02:42 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ typedef enum	e_operations
 	E_OPER_SIZE
 }							t_operations;
 
-typedef struct	s_rsrvd
-{
-	char	*qts;
-	char	*reserved;
-	char	**operations;
-}								t_rsrvd;
-
 typedef struct	s_argv
 {
 	t_uchar				in_herdoc;
@@ -52,7 +45,7 @@ typedef struct	s_argv
 	t_cchar				**argv;
 }								t_argv;
 
-t_llist	*netdata(t_cchar *args, t_cchar **operations, t_cchar **data);
+t_llist	*netdata(t_llist *data);
 
 t_argv	*crt_argvt();
 void	free_argvt(void *data);
