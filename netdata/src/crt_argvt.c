@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:44:14 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/06 21:04:10 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/27 23:42:53 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_argv	*crt_argvt()
 	argvt->argv = NULL;
 	argvt->in_file = NULL;
 	argvt->in_herdoc = 0;
-	argvt->operation = E_OPER_SIZE;
+	argvt->operation = E_ERR;
 	argvt->out_append = 0;
 	argvt->out_file = NULL;
 	return (argvt);

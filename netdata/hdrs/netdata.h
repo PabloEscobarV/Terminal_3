@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/26 01:02:42 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/27 23:44:04 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define ND_RSRVD_SYMB "\\|$<>\"\'"
 # define ND_SPLITTERS	"|| $$ | $"
-# define ND_OPERATIONS	"|| $$ << >> > < | $"
+# define ND_OPERATIONS	"|| $$ << >> > < | $ "
 # define ND_SKIP_PAIR	"\" \'"
 # define ND_ESC_CH		'\\'
 
@@ -37,7 +37,7 @@ typedef enum	e_operations
 typedef struct	s_argv
 {
 	t_uchar				in_herdoc;
-	t_operations	operation;
+	int						operation;
 	t_uchar				out_append;
 	t_cchar				*app_path;
 	t_cchar				*in_file;
@@ -49,5 +49,6 @@ t_llist	*netdata(t_llist *data);
 
 t_argv	*crt_argvt();
 void	free_argvt(void *data);
+void print_args(void *data);
 
 #endif

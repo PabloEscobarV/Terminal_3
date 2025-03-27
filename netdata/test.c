@@ -6,12 +6,12 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/17 20:08:41 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/27 23:12:06 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hdrs/netdata.h"
-#include "../splitter/hdrs/splitter.h"
+#include "../splitter_2/hdrs/splitter.h"
 #include "../libft/libft.h"
 #include "../symb_str_delete/hdrs/str_ch_delete.h"
 #include "../handle_in_file/hdrs/handle_in_file.h"
@@ -40,6 +40,13 @@ void print_matrix(const char **strv)
 	}
 }
 
+void print_args(void *data)
+{
+	t_args	*argst = (t_args *)data;
+
+	printf("OPERATION CODE:\t%d\nDATA:\t|%s|\n-------------\n", argst->operation, argst->data);
+}
+
 void print_argvt(void *data)
 {
 	t_argv	*argvt = (t_argv *)data;
@@ -54,37 +61,35 @@ void print_argvt(void *data)
 	printf("================================\n");
 }
 
-void handle_in_data(t_cchar *args, t_cchar **splitters, t_cchar **operations)
+void handle_in_data(t_cchar *args, t_cchar **operations)
 {
+	t_llist	*args_llist;
 	t_llist	*llist_argvt;
-	char	**data;
 
 	// args = str_ch_delete(args, '\\');
 	// move_symbol((char *)args, ND_RSRVD_SYMB, '<');
 	printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
-	data = splitter(args, splitters);
-	print_matrix((t_cchar **)data);
-	llist_argvt = netdata(args, operations, (t_cchar **)data);
+	args_llist = splitter(args, operations);
+	llistiter(args_llist, print_args);
+	llist_argvt = netdata(args_llist);
 	free((void *)args);
-	ft_free_d((void **)data);
 	llistiter(llist_argvt, print_argvt);
+	llistclear(&args_llist, free);
 	llistclear(&llist_argvt, free_argvt);
 }
 
 int main()
 {
 	char *str = NULL;
-	t_cchar **splitters = (t_cchar **)ft_split(ND_SPLITTERS, ' ');
 	t_cchar	**operations = (t_cchar **)ft_split(ND_OPERATIONS, ' ');
 
 	while (1)
 	{
 		if (read_data_from_stdi(&str))
 				break;
-		handle_in_data((t_cchar *)str, splitters, operations);
+		handle_in_data((t_cchar *)str, operations);
 	}
 	free(str);
 	ft_free_d((void **)operations);
-	ft_free_d((void **)splitters);
 	return (0);
 }
