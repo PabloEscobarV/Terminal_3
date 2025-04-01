@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/27 23:12:06 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/01 21:27:49 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void handle_in_data(t_cchar *args, t_cchar **operations)
 	llist_argvt = netdata(args_llist);
 	free((void *)args);
 	llistiter(llist_argvt, print_argvt);
-	llistclear(&args_llist, free);
+	llistclear(&args_llist, free_t_args);
 	llistclear(&llist_argvt, free_argvt);
 }
 

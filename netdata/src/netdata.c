@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:32:36 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/27 23:54:43 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/01 21:34:45 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ static t_uchar	set_file(t_cchar *file, int operation, t_argv *argvt)
 	{
 	case E_OPER_APP_OUTFILE:
 		argvt->out_append = E_TRUE;
-		argvt->out_file = file;
+		if (argvt->out_file)
+			free((void *)argvt->out_file);
+		argvt->out_file = ft_strdup(file);
 		break ;
 	case E_OPER_OUTFILE:
-		argvt->out_file = file;
+		if (argvt->out_file)
+			free((void *)argvt->out_file);
+		argvt->out_file = ft_strdup(file);
 		break ;
 	case E_OPER_INFILE:
-		argvt->in_file = file;
+		if (argvt->in_file)
+			free((void *)argvt->in_file);
+		argvt->in_file = ft_strdup(file);
 		break ;
 	default:
 		operation = E_FALSE;
@@ -55,17 +61,14 @@ static t_llist	*get_data(t_llist **data, t_argv *argvt)
 	argv_llist = NULL;
 	while (*data && argvt->operation < 0)
 	{
-		if (get_args(*data)->data && get_args(*data)->data[0])
-			llistadd_back(&argv_llist, llistnewnode((void *)(get_args(*data)->data)));
+		if (argvt->operation != -2 && get_args(*data)->data && get_args(*data)->data[0])
+			llistadd_back(&argv_llist, llistnewnode(ft_strdup(get_args(*data)->data)));
 		argvt->operation = get_args(*data)->operation;
 		*data = (*data)->next;
 		if (!(*data))
 			break ;
 		if (set_file(get_args(*data)->data, argvt->operation, argvt))
-		{
-			get_args(*data)->data = NULL;
-			argvt->operation = E_ERR;
-		}
+			argvt->operation = -2;
 	}
 	return (argv_llist);
 }
