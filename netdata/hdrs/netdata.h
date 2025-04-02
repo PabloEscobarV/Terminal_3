@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/27 23:44:04 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/02 21:15:04 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define NETDATA_H
 
 #include "../../libft/libft.h"
+#include "../../splitter_2/hdrs/splitter.h"
 
 # define ND_RSRVD_SYMB "\\|$<>\"\'"
 # define ND_SPLITTERS	"|| $$ | $"
@@ -50,5 +51,10 @@ t_llist	*netdata(t_llist *data);
 t_argv	*crt_argvt();
 void	free_argvt(void *data);
 void print_args(void *data);
+
+static inline t_args *get_args(t_llist *data)
+{
+	return ((t_args *)(data->data));
+}
 
 #endif
