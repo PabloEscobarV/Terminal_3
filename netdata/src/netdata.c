@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:32:36 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/02 21:13:05 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/06 10:34:28 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static t_llist	*get_data(t_llist **data, t_argv *argvt)
 	argv_llist = NULL;
 	while (*data && argvt->operation < 0)
 	{
-		if (argvt->operation != -2 && get_args(*data)->data && get_args(*data)->data[0])
+		if (argvt->operation != E_OPER_NV && get_args(*data)->data && get_args(*data)->data[0])
 			llistadd_back(&argv_llist, llistnewnode(ft_strdup(get_args(*data)->data)));
 		argvt->operation = get_args(*data)->operation;
 		*data = (*data)->next;
 		if (!(*data))
 			break ;
 		if (set_file(get_args(*data)->data, argvt->operation, argvt))
-			argvt->operation = -2;
+			argvt->operation = E_OPER_NV;
 	}
 	return (argv_llist);
 }

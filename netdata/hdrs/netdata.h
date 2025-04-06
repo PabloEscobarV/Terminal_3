@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/02 21:15:04 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/06 10:34:32 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 typedef enum	e_operations
 {
+	E_OPER_NV = -2,
+	E_OPER_ERR,
 	E_OPER_OR,
 	E_OPER_AND,
 	E_OPER_HERDOC,
