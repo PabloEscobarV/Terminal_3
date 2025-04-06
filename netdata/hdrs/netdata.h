@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/06 10:34:32 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/06 10:42:11 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define NETDATA_H
 
 #include "../../libft/libft.h"
-#include "../../splitter_2/hdrs/splitter.h"
+#include "../../splitter/hdrs/splitter.h"
 
 # define ND_RSRVD_SYMB "\\|$<>\"\'"
 # define ND_SPLITTERS	"|| $$ | $"

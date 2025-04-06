@@ -6,7 +6,7 @@
 #    By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/02 21:34:27 by Pablo Escob       #+#    #+#              #
-#    Updated: 2025/04/02 21:38:52 by Pablo Escob      ###   ########.fr        #
+#    Updated: 2025/04/06 10:42:35 by Pablo Escob      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIB_HANDLE_IN_FILE = handle_in_file
 SRC_DIR = src
 OBJ_DIR = objs
 LIB_FT_DIR = ../libft
-LIB_SPLITTER_DIR = ../splitter_2
+LIB_SPLITTER_DIR = ../splitter
 LIB_STR_CH_DELETE_DIR = ../symb_str_delete
 LIB_GET_APP_PATH_DIR = ../get_app_path
 LIB_HANDLE_IN_FILE_DIR = ../handle_in_file

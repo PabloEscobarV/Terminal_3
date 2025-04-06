@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:02:34 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/23 20:07:53 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/16 21:14:08 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,7 @@
 
 #define SPLT_QUETS	"\"\'"
 #define SPLT_ESC_CH	'\\'
-#define SPLT_SPACE	' '
-#define SPLT_OPERATIONS	"||,$$,<<,>>,>,<,|,$,"
-#define SPLT_SPLIT_OPER	','
 
-typedef struct	s_args
-{
-	int				operation;
-	t_cchar		*data;
-}								t_args;
+char				**splitter(t_cchar *str, t_cchar **operation);
 
-t_llist	*splitter(t_cchar *str, t_cchar **operation);
-t_args	*crt_t_args(t_cchar *data, int operation);
-void		free_t_args(void *data);
 #endif

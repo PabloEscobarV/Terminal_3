@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:39:44 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/03/23 20:29:45 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/03/23 20:04:55 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,100 +14,79 @@
 #include "../hdrs/splitter_srvs.h"
 #include "../../libft/libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
-static int	get_str_crd(t_cchar *str, t_crd *crd, t_cchar **operation)
+static int	skip_space_oper(t_cchar *str, t_crd *crd, int operation,
+							t_cchar **operations)
 {
-	int	i;
-	t_cchar	*tmp;
-
-	while (crd->i < crd->size)
+	if (ft_isspace(str[crd->i]))
 	{
-		skip_qts(str, crd);
-		tmp = ft_cmp_strv(str + crd->i, operation);
-		if (tmp)
-		{
-			if (esc_ch_filter(str, crd, SPLT_ESC_CH))
-				break ;
-			i = ft_strlen(tmp) - 1;
-			if (i > 0)
-				crd->i += i;
-		}
-		++crd->i;
+		crd->i = ft_skip_spaces(str + crd->i) - str;
+		operation = ft_cmp_strv_crd(str + crd->i, operations);
 	}
-	return (ft_strlen(tmp));
+	return (operation);
 }
 
-static char	*get_str(t_cchar *str, t_crd *crd, t_cchar **operation)
+static t_args	*get_args_qts(t_cchar *str, t_crd *crd, t_cchar **operations)
 {
-	int		i;
-	int		tmp;
-	char	*result;
+	t_uint	start;
+	t_uint	end;
+	t_args	*argst;
 
-	tmp = crd->i;
-	i = get_str_crd(str, crd, operation);
-	if (tmp < crd->i)
-		result = ft_strldup(str + tmp, crd->i - tmp);
-	else
-		result = NULL;
-	crd->i += i;
-	return (result);
+	start = crd->i;
+	if (!get_oper_crd_qts(str, crd, operations))
+		return (NULL);
+	++crd->i;
+	end = crd->i - start;
+	argst = crt_t_args(ft_strldup(str + start, crd->i - start), -1);
+	crd->i = ft_skip_spaces(str + crd->i) - str;
+	argst->operation = ft_cmp_strv_crd(str + crd->i, operations);
+	if (argst->operation >= 0)
+		crd->i += ft_strlen(operations[argst->operation]);
+	return (argst);
 }
 
-static t_llist	*get_list(t_cchar *str, t_crd *crd, t_cchar **operation)
+static t_args	*get_args_data(t_cchar *str, t_crd *crd, t_cchar **operations)
 {
-	char	*tmp;
+	t_uint	start;
+	t_uint	end;
+	int			oper_code;
+	t_args	*argst;
+
+	crd->i = ft_skip_spaces(str + crd->i) - str;
+	start = crd->i;
+	oper_code = get_oper_crd(str, crd, operations);
+	end = crd->i - start;
+	oper_code = skip_space_oper(str, crd, oper_code, operations);
+	argst = crt_t_args(ft_strldup(str + start, end), oper_code);
+	if (oper_code >= 0)
+		crd->i += ft_strlen(operations[oper_code]);
+	return (argst);
+}
+
+static t_llist	*get_list(t_cchar *str, t_crd *crd, t_cchar **operations)
+{
+	t_args	*argst;
 	t_llist	*llst;
 
 	llst = NULL;
 	while (crd->i < crd->size)
 	{
-		tmp = get_str(str, crd, operation);
-		if (tmp)
-			llistadd_back(&llst, llistnewnode(tmp));
+		argst = get_args_qts(str, crd, operations);
+		if (!argst)
+			argst = get_args_data(str, crd, operations);
+		if (argst)
+			llistadd_back(&llst, llistnewnode(argst));
 	}
 	return (llst);
 }
 
-static char	**get_strv_from_llst(t_llist *llst)
+t_llist	*splitter(t_cchar *str, t_cchar **operation)
 {
-	int		sizev;
-	char	**strv;
+	t_crd	crd;
 
-	sizev = llistsize(llst);
-	if (!sizev)
+	if (!str || !operation)
 		return (NULL);
-	strv = malloc((sizev + 1) * sizeof(char *));
-	if (!strv)
-	{
-		ft_perror("ERROR!!! Bad mammory allocation");
-		exit(-1);
-	}
-	strv[sizev] = NULL;
-	sizev = 0;
-	while (llst)
-	{
-		strv[sizev] = llst->data;
-		++sizev;
-		llst = llst->next;
-	}
-	return (strv);
-}
-
-char	**splitter(t_cchar *str, t_cchar **operation)
-{
-	char		**strv;
-	t_llist	*llst;
-	t_crd		crd;
-
-	if (!str)
-		return (NULL);
-	if (!operation)
-		return (transfer_str(str));
 	crd.i = 0;
 	crd.size = ft_strlen(str);
-	llst = get_list(str, &crd, operation);
-	strv = get_strv_from_llst(llst);
-	llistclear(&llst, ft_void);
-	return (strv);
+	return (get_list(str, &crd, operation));
 }
