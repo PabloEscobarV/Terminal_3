@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/06 10:42:17 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/06 14:26:07 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void print_argvt(void *data)
 {
 	t_argv	*argvt = (t_argv *)data;
 
+	if (!argvt)
+	{
+		printf("ARGVT IS NULL!!!\n");
+		return ;
+	}
 	printf("HERDOC:\t%d\tOUT_APPEND:\t%d\n", argvt->in_herdoc, argvt->out_append);
 	printf("OPERATION CODE:\t%d\n", argvt->operation);
 	printf("APPLICTION PATH:\t%s\n", argvt->app_path);
@@ -68,8 +73,11 @@ void handle_in_data(t_cchar *args, t_cchar **operations)
 
 	// args = str_ch_delete(args, '\\');
 	// move_symbol((char *)args, ND_RSRVD_SYMB, '<');
-	printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
+	// printf("TEST: AFTER MOVE_SYMOBOL:\t%s\n", args);
+	printf("ENTERD STRING:\t%s\n", args);
 	args_llist = splitter(args, operations);
+	if (!args_llist)
+		printf("ARGS LLIST IS NULL!!!\n");
 	llistiter(args_llist, print_args);
 	llist_argvt = netdata(args_llist);
 	free((void *)args);

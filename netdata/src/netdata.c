@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:32:36 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/06 10:42:04 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/06 14:28:00 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../splitter/hdrs/splitter.h"
 #include "../../libft/libft.h"
 #include "../../get_app_path/hdrs/get_app_path.h"
-#include <stdio.h>
 
 static t_uchar	set_file(t_cchar *file, int operation, t_argv *argvt)
 {

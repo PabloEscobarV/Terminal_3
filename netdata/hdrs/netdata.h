@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/06 10:42:11 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/06 16:04:29 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define ND_OPERATIONS	"|| $$ << >> > < | $ "
 # define ND_SKIP_PAIR	"\" \'"
 # define ND_ESC_CH		'\\'
+# define ND_SPACE			' '
 
 typedef enum	e_operations
 {
@@ -54,9 +55,9 @@ t_argv	*crt_argvt();
 void	free_argvt(void *data);
 void print_args(void *data);
 
-static inline t_args *get_args(t_llist *data)
+static inline t_argv	*get_argv(t_llist *data)
 {
-	return ((t_args *)(data->data));
+	return ((t_argv *)(data->data));
 }
 
 #endif
