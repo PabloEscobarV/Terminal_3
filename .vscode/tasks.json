@@ -16,7 +16,7 @@
                 "-lft",
                 "-L../splitter_2",
                 "-lsplitter",
-                "-L../symb_str_delete",
+                "-L../str_ch_delete",
                 "-lstr_ch_delete",
                 "-L../get_app_path",
                 "-lget_app_path",
