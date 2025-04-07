@@ -6,14 +6,14 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/06 14:26:07 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/07 21:29:32 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hdrs/netdata.h"
 #include "../splitter/hdrs/splitter.h"
 #include "../libft/libft.h"
-#include "../symb_str_delete/hdrs/str_ch_delete.h"
+#include "../str_ch_delete/hdrs/str_ch_delete.h"
 #include "../handle_in_file/hdrs/handle_in_file.h"
 #include <stdio.h>
 #include <readline/readline.h>
