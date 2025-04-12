@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 23:27:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/06 16:04:29 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/13 01:32:53 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define ND_RSRVD_SYMB "\\|$<>\"\'"
 # define ND_SPLITTERS	"|| $$ | $"
-# define ND_OPERATIONS	"|| $$ << >> > < | $ "
+# define ND_OPERATIONS	"|| $$ $? << >> > < |"
 # define ND_SKIP_PAIR	"\" \'"
 # define ND_ESC_CH		'\\'
 # define ND_SPACE			' '
@@ -29,12 +29,12 @@ typedef enum	e_operations
 	E_OPER_ERR,
 	E_OPER_OR,
 	E_OPER_AND,
+	E_OPER_EXIT_CODE,
 	E_OPER_HERDOC,
 	E_OPER_APP_OUTFILE,
 	E_OPER_OUTFILE,
 	E_OPER_INFILE,
 	E_OPER_PIPE,
-	E_OPER_EXIT_CODE,
 	E_OPER_SIZE
 }							t_operations;
 

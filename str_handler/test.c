@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 22:01:48 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/07 22:17:54 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/13 01:55:24 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void print_matrix(const char **strv)
 		printf("|%s|\n", *strv);
 		++strv;
 	}
-}
-
-void print_args(void *data)
-{
-	t_args	*argst = (t_args *)data;
-
-	printf("OPERATION CODE:\t%d\nDATA:\t|%s|\n-------------\n", argst->operation, argst->data);
 }
 
 void print_argvt(void *data)
@@ -87,8 +80,10 @@ int main()
 		if (read_data_from_stdi(&str))
 				break;
 		handle_in_data((t_cchar *)str, operations, hst);
+		free(str);
 	}
 	free(str);
 	ft_free_d((void **)operations);
+	freehashtablet(hst);
 	return (0);
 }

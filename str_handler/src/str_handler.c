@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:48:20 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/07 22:34:35 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/13 01:53:01 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,15 @@
 #include "../../varhandler/hdrs/varhandler.h"
 #include <stdio.h>
 
-static inline	int	is_qts(char	ch)
-{
-	if (ch == SH_DQTS || ch == SH_SQTS)
-		return (E_TRUE);
-	return (E_FALSE);
-}
-
 static void	var_handler(t_llist	*args_llist, t_hashtable *hst)
 {
 	while (args_llist)
 	{
-		if (!is_qts(get_args(args_llist)->data[0])
+		if (!ft_is_qts(get_args(args_llist)->data[0])
 			&& varhandler(get_args(args_llist)->data, hst))
 		{
-			free_t_args(args_llist->data);
-			args_llist->data = NULL;
+			free((void *)get_args(args_llist)->data);
+			get_args(args_llist)->data = NULL;
 		}
 		args_llist = args_llist->next;
 	}
@@ -61,7 +54,7 @@ static void ch_delete(const char **str)
 {
 	const char	*tmp;
 
-	if (**str == SH_DQTS)
+	if (**str != SH_SQTS)
 	{
 		tmp = str_ch_delete(*str, ND_ESC_CH);
 		free((void *)(*str));
@@ -75,11 +68,14 @@ static void correct_argv_str(t_llist *argv_llist, t_hashtable *hst)
 	char	*tmp;
 
 	i = 0;
-	while (get_argv(argv_llist)->argv[i])
+	if (get_argv(argv_llist)->argv)
 	{
-		var_insert(get_argv(argv_llist)->argv + i, hst);
-		ch_delete(get_argv(argv_llist)->argv + i);
-		++i;
+		while (get_argv(argv_llist)->argv[i])
+		{
+			var_insert(get_argv(argv_llist)->argv + i, hst);
+			ch_delete(get_argv(argv_llist)->argv + i);
+			++i;
+		}
 	}
 }
 

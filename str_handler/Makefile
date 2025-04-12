@@ -6,7 +6,7 @@
 #    By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/07 22:06:59 by Pablo Escob       #+#    #+#              #
-#    Updated: 2025/04/07 22:38:27 by Pablo Escob      ###   ########.fr        #
+#    Updated: 2025/04/13 01:25:51 by Pablo Escob      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,6 @@ TEST_F =	$(LIB_NET_DATA_F) \
 					$(LIB_VAR_HANDLER_F) \
 					$(LIB_HASH_TABLE_F) \
 					$(READLINE_F)
-# TEST_F = $(LIB_FT_FLAGS) $(LIB_SPLITTER_F) $(LIB_GET_APP_PATH_F) $(LIB_STR_CH_DELETE_F) $(LIB_HANDLE_IN_FILE_F) $(LIB_HASH_TABLE_F) $(LIB_NET_DATA_F) $(READLINE_F)
 
 .PHONY: all, clean, fclean, re, lib, run
 
@@ -84,7 +83,7 @@ fclean: clean
 	$(MAKE) -C $(LIB_GET_APP_PATH_DIR) fclean
 	$(MAKE) -C $(LIB_HANDLE_IN_FILE_DIR) fclean
 	$(MAKE) -C $(LIB_NET_DATA_DIR) fclean
-		$(MAKE) -C $(LIB_HASH_TABLE_DIR) fclean
+	$(MAKE) -C $(LIB_HASH_TABLE_DIR) fclean
 	$(MAKE) -C $(LIB_VAR_HANDLER_DIR) fclean
 	rm -f $(LIB_NAME) $(TEST_NAME)
 
@@ -97,6 +96,8 @@ run: lib
 	$(MAKE) -C $(LIB_GET_APP_PATH_DIR)
 	$(MAKE) -C $(LIB_HANDLE_IN_FILE_DIR)
 	$(MAKE) -C $(LIB_NET_DATA_DIR)
+	$(MAKE) -C $(LIB_HASH_TABLE_DIR)
+	$(MAKE) -C $(LIB_VAR_HANDLER_DIR)
 	$(CC) $(CFLAGS) $(TEST_FILE) $(LIB_NAME) $(TEST_F) -o $(TEST_NAME)
 	./$(TEST_NAME)
 

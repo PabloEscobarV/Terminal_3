@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:59:02 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/04/07 21:29:32 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/04/13 01:39:11 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ void print_argvt(void *data)
 	printf("================================\n");
 }
 
+void	args_data_null(t_llist	*args_llist)
+{
+	while (args_llist)
+	{
+		free(get_args(args_llist)->data);
+		get_args(args_llist)->data = NULL;
+		args_llist = args_llist->next;
+	}
+}
+
 void handle_in_data(t_cchar *args, t_cchar **operations)
 {
 	t_llist	*args_llist;
@@ -79,6 +89,7 @@ void handle_in_data(t_cchar *args, t_cchar **operations)
 	if (!args_llist)
 		printf("ARGS LLIST IS NULL!!!\n");
 	llistiter(args_llist, print_args);
+	args_data_null(args_llist);
 	llist_argvt = netdata(args_llist);
 	free((void *)args);
 	llistiter(llist_argvt, print_argvt);
