@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 21:23:51 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/05/26 21:44:40 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/05/26 21:54:11 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	parent_handler(int pid, int *pipefd)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
-	close(pipefd[1]);
 	return (status);
 }
 
