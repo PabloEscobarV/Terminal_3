@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 20:52:08 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/06/10 22:55:14 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/06/16 21:33:37 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,77 @@
 #include <sys/wait.h>
 #include <stdio.h>
 
-static void	exec_pipe(t_cchar *app_path, t_cchar **argv, t_cchar **envp, int *pipefd)
+static void	wrong_file_fd(t_cchar *file_name)
 {
-	if (pipefd[0] > -1)
+	printf("%s: no such file or directory\n", file_name);
+	exit(PE_NO_FILE);
+}
+
+static void	set_input_descriptor(const t_argv *argvt, int *pipefd)
+{
+	int	fd;
+	
+	if (pipefd && pipefd[0] < 0)
+		return ;
+	fd = -1;
+	if (argvt->in_file)
+	{
+		fd = open(argvt->in_file, O_RDONLY);
+		if (fd < 0)
+			wrong_file_fd(argvt->in_file);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	if (pipefd && fd < 0)
 	{
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 	}
-	if (pipefd[1] > -1)
+	return ;
+}
+
+static void set_output_descriptor(const t_argv *argvt, int *pipefd)
+{
+	int	fd;
+	
+	fd = -1;
+	if (argvt->out_file)
+	{
+		if (argvt->out_append)
+			fd = open(argvt->out_file, O_WRONLY | O_CREAT | O_APPEND);
+		else
+			fd = open(argvt->out_file, O_WRONLY | O_CREAT);
+		if (fd < 0)
+			wrong_file_fd(argvt->out_file);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	if (fd < 0 && pipefd)
 	{
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 	}
-	execve(app_path, (char* const*)(argv), (char* const*)envp);
+}
+
+static void	exec_pipe(const t_argv *argvt, t_cchar **envp, int *pipefd)
+{
+	set_input_descriptor(argvt, pipefd);
+	set_output_descriptor(argvt, pipefd);
+	execve(argvt->app_path, (char* const*)(argvt->argv), (char* const*)envp);
 	exit(-1);
 }
 
-int	pipex(t_cchar *app_path, t_cchar **argv, t_cchar **envp, int *pipefd)
+int	pipex(const t_argv *argvt, t_cchar **envp, int *pipefd)
 {
 	int	pid;
 
-	if (!app_path || !argv || !(*argv))
+	if (!argvt)
 		return (E_ERR);
 	pid = fork();
 	if (pid < 0)
 		return (E_ERR);
 	if (!pid)
-		exec_pipe(app_path, argv, envp, pipefd);
+		exec_pipe(argvt, envp, pipefd);
 	return (pid);
 }
 

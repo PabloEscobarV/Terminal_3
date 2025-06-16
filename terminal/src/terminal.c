@@ -6,7 +6,7 @@
 /*   By: Pablo Escobar <sataniv.rider@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 20:14:16 by Pablo Escob       #+#    #+#             */
-/*   Updated: 2025/06/10 22:50:00 by Pablo Escob      ###   ########.fr       */
+/*   Updated: 2025/06/16 21:33:32 by Pablo Escob      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,57 +21,24 @@
 #include <unistd.h>
 #include <readline/readline.h>
 
-void	command_execute(int operation, int exit_status)
+static int**	create_pipes(int pipe_count)
 {
-	switch (operation)
-	{
-		case E_OPER_OR:
-			
-			break;
-		case E_OPER_AND:
-
-			break ;
-		case E_OPER_EXIT_CODE:
-
-			break ;
-		case E_OPER_HERDOC:
-
-			break ;
-		case E_OPER_APP_OUTFILE:
-
-			break ;
-		case E_OPER_OUTFILE:
-
-			break ;
-		case E_OPER_INFILE:
-
-			break ;
-		case E_OPER_PIPE:
-
-			break ;
-		default:
-			break;
-	}
-}
-
-int**	create_pipes(int pipe_count)
-{
-	int	**pipes;
+	int	**pipefds;
 
 	if (pipe_count < 1)
 		return (NULL);
-	pipes = malloc((pipe_count + 1) * sizeof(int *));
-	if (!pipes)
+	pipefds = malloc((pipe_count + 1) * sizeof(int *));
+	if (!pipefds)
 	{
 		ft_perror("ERROR!!! MALLOC: Try to create pipe");
 		exit(-1);
 	}
-	pipes[pipe_count] = NULL;
+	pipefds[pipe_count] = NULL;
 	while (pipe_count)
 	{
 		--pipe_count;
-		pipes[pipe_count] = malloc(2 * sizeof(int));
-		if (!pipes[pipe_count])
+		pipefds[pipe_count] = malloc(2 * sizeof(int));
+		if (!pipefds[pipe_count])
 		{
 			ft_perror("ERROR!!! MALLOC: Try to create pipe");
 			exit(-1);
@@ -82,87 +49,46 @@ int**	create_pipes(int pipe_count)
 			return (NULL);
 		}
 	}
-	return (pipes);
+	return (pipefds);
 }
 
-static void	wrong_file_fd(t_cchar *file_name)
+static void	set_pipes(int **pipefds, t_llist *argvll)
 {
-	printf("%s: no such file or directory\n", file_name);
-	exit(PE_NO_FILE);
-}
-
-static int	set_input_descriptor(t_argv *argvt, int *pipefd)
-{
-	int	fd;
-	
-	if (argvt->in_file)
+	if (!get_argv(argvll)->in_file)
 	{
-		fd = open(argvt->in_file, O_RDONLY);
-		if (fd < 0)
-		{
-			wrong_file_fd(argvt->in_file);
-			return (E_ERR);
-		}
-		close(pipefd[0]);
-		pipefd[0] = fd;
+		close(pipefds[0][0]);
+		pipefds[0][0] = PE_NO_PIPE;
 	}
-	return (0)
 }
 
-static int set_output_descriptor(t_argv *argvt, int *pipefd)
+static int *create_pid(int size)
 {
-	int	fd;
-	
-	if (out_file)
-	{
-		if (out_append)
-			fd = open(out_file, O_WRONLY | O_CREAT | O_APPEND);
-		else
-			fd = open(out_file, O_WRONLY | O_CREAT);
-		if (fd < 0)
-		{
-			wrong_file_fd(out_file);
-			return (E_ERR);
-		}
-		close(pipefd[1]);
-		pipefd[1] = fd;
-	}
-	return (0);
+	int *pid;
+
+	pid = malloc(size * sizeof(int));
+	return (pid);
 }
 
-void	fork_process(t_llist *argvll)
+void	fork_process(t_llist *argvll, t_cchar **envp)
 {
 	int	i;
 	int	pipe_count;
-	int	pipefd[2];
-	int **pipes;
+	int **pipefds;
+	int	*pid;
 
-	pipe_count = llistsize(argvll - 1);
-	pipes = create_pipes(pipe_count);
-	if (argvll->previous)
-	{
-		if (!argvll->previous->next)
-		{
-			close(pipes[i][0]);
-			if (get_argv(argvll)->in_file)
-				dup2
-			else
-				pipes[0][0] = PE_NO_INFILE;
-		}
-		if (!argvll->previous->next && !get_argv(argvll->previous)->out_file)
-		{
-			close(pipes[pipe_count][1]);
-			pipes[pipe_count][1] = PE_NO_OUTFILE;
-		}
-	}
-
+	pipe_count = llistsize(argvll);
+	pipefds = create_pipes(pipe_count - 1);
+	pid = create_pid(pipe_count);
+	set_pipes(pipefds, argvll);
 	i = 0;
-	while (argvll)
+	while (argvll->next)
 	{
-
-		argvll = argvll->next;
-		++i;
+		pid[i] = pipex(get_argv(argvll), envp, pipefds[i]);
+		pid[i + 1] = pipex(get_argv(argvll->next), envp, pipefds[i]);
+		argvll = argvll->next->next;
+		i += 2;
 	}
+	pid[i] = pipex(get_argv(argvll), envp, pipefds[i - 1]);
 }
 
 static inline int	pipex_runner(t_argv *argvt, t_cchar **envp, int *pipefd)
